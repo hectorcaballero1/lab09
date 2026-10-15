@@ -7,6 +7,9 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "${PGPORT:-5432}:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./data:/data:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d labofwords"]
       interval: 2s
